@@ -15,7 +15,7 @@ For iOS users just scan qr code in camera app.
 
 
 ## Credits 
-JashGro
+### JashGro
 
 Portfolio - https://bit.ly/jashgro
 
