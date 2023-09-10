@@ -18,6 +18,9 @@ For iOS users just scan qr code in camera app.
 JashGro
 
 Portfolio - https://bit.ly/jashgro
+
 Telegram - https://telegram.dog/jashgro
+
 Github - https://github.com/BlackHatDevX
+
 Linkedin - https://linkedin.com/in/jash-gro
