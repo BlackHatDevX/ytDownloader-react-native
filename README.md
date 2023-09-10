@@ -1,5 +1,4 @@
-# ytDownloader-react-native
-Introducing "Youtube Downloader React Native" – Your Ultimate Video Downloading Companion
+# Introducing "Youtube Downloader React Native" – Your Ultimate Video Downloading Companion
 
 Welcome to a cutting-edge React Native project that combines the power of modern technology with a sleek Material AMOLED UI. Say goodbye to endless online video buffering and hello to a seamless, intuitive, and visually stunning YouTube downloading experience. In this project, we've harnessed the capabilities of React Native to bring you a feature-rich application that simplifies the process of downloading your favorite YouTube videos.
 
