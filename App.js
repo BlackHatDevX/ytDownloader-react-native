@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import {
   Alert,
-  Button,
   Image,
+  Keyboard,
   Linking,
   Text,
   TextInput,
@@ -15,23 +15,34 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const [yturi, setUri] = useState("");
-  const [ytLink, setYtLink] = useState("");
+  const [ytVideoLink, setYtVideoLink] = useState("");
+  const [ytAudioLink, setYtAudioLink] = useState("");
   const downloadFromUrl = async () => {
+    Keyboard.dismiss();
     if (yturi == "") {
       Alert.alert("Error", "Link box seems is empty. Enter link to continue", [
-        { text: "OK", onPress: () => console.log("OK Pressed") },
+        { text: "OK", onPress: () => "" },
       ]);
     } else {
       const youtubeURL = yturi;
-      const urls = await ytdl(youtubeURL, { quality: "highest" });
-      const finalUri = urls[0].url;
+      const basicInfo = await ytdl.getBasicInfo(youtubeURL);
+      const title = basicInfo.player_response.videoDetails.title;
+      const videoUrls = await ytdl(youtubeURL, { quality: "highestaudio" });
+      const audioUrls = await ytdl(youtubeURL, {
+        quality: "highestaudio",
+        filter: "audioonly",
+        format: "m4a",
+      });
+      const videoFinalUri = videoUrls[0].url;
+      const audioFinalUri = audioUrls[0].url;
 
       Alert.alert(
         "Link Generated",
         "Link has been generated, tap download now to download video",
-        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+        [{ text: "OK", onPress: () => "" }]
       );
-      setYtLink(finalUri);
+      setYtVideoLink(videoFinalUri + "&title=" + title);
+      setYtAudioLink(audioFinalUri + "&title=" + title);
     }
   };
 
@@ -59,6 +70,7 @@ export default function App() {
             onChangeText={setUri}
             value={yturi}
           />
+
           <TouchableOpacity
             className="align-middle bg-white border-2 mt-10 rounded-xl w-48 pt-1 pb-1 mr-auto ml-auto"
             onPress={downloadFromUrl}
@@ -71,16 +83,30 @@ export default function App() {
           <Text
             className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl"
             onPress={() => {
-              if (ytLink == "") {
+              if (ytVideoLink == "") {
                 Alert.alert(
                   "Error",
                   "No link generated yet, please generate link first",
-                  [{ text: "OK", onPress: () => console.log("no link") }]
+                  [{ text: "OK", onPress: () => "" }]
                 );
-              } else Linking.openURL(ytLink);
+              } else Linking.openURL(ytVideoLink);
             }}
           >
-            <Text className="text-center pb-2 font-bold">Download Now</Text>
+            <Text className="text-center pb-2 font-bold">Download Video</Text>
+          </Text>
+          <Text
+            className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl"
+            onPress={() => {
+              if (ytAudioLink == "") {
+                Alert.alert(
+                  "Error",
+                  "No link generated yet, please generate link first",
+                  [{ text: "OK", onPress: () => "" }]
+                );
+              } else Linking.openURL(ytAudioLink);
+            }}
+          >
+            <Text className="text-center pb-2 font-bold">Download Audio</Text>
           </Text>
         </View>
         <StatusBar style="light" />
