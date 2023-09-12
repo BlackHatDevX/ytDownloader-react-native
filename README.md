@@ -16,9 +16,7 @@ For android users, open expo go app and scan qr code in terminal
 
 For iOS users just scan qr code in camera app.
 
-## Credits 
-
-### JashGro
+## Credits : JashGro
 
 Portfolio - https://bit.ly/jashgro
 
