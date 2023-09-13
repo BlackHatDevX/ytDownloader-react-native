@@ -154,6 +154,7 @@ export default function App() {
 
           {/* video button  */}
           <TouchableOpacity
+            className="w-48 ml-auto mr-auto"
             onPress={() => {
               if (ytVideoLink == "") {
                 Alert.alert(
@@ -164,13 +165,14 @@ export default function App() {
               } else Linking.openURL(ytVideoLink);
             }}
           >
-            <Text className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl pb-2 font-bold">
+            <Text className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl font-bold">
               Download Video
             </Text>
           </TouchableOpacity>
 
           {/* audio button  */}
           <TouchableOpacity
+            className="w-48 ml-auto mr-auto"
             onPress={() => {
               if (ytAudioLink == "") {
                 Alert.alert(
@@ -181,7 +183,7 @@ export default function App() {
               } else Linking.openURL(ytAudioLink);
             }}
           >
-            <Text className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl pb-2 font-bold">
+            <Text className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl font-bold">
               Download Audio
             </Text>
           </TouchableOpacity>
@@ -192,7 +194,7 @@ export default function App() {
       {/* github logo  */}
       <TouchableOpacity
         className="absolute "
-        style={{ left: "40%", bottom: "5%" }}
+        style={{ right: "5%", bottom: "5%" }}
         onPress={() => {
           Linking.openURL(
             "https://github.com/BlackHatDevX/ytDownloader-react-native"
