@@ -1,6 +1,10 @@
+// start : importing stuff
+
 import { StatusBar } from "expo-status-bar";
 import {
   Alert,
+  Appearance,
+  Dimensions,
   Image,
   Keyboard,
   Linking,
@@ -12,11 +16,35 @@ import {
 import ytdl from "react-native-ytdl";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { MoonIcon, SunIcon } from "react-native-heroicons/outline";
+// e : importing stuff
 
+// s : dimensions
+const { width, height } = Dimensions.get("window");
+// e : dimensions
+
+// s : main app
 export default function App() {
+  // s : states
+  const [color, setColor] = useState(Appearance.getColorScheme());
   const [yturi, setUri] = useState("");
   const [ytVideoLink, setYtVideoLink] = useState("");
   const [ytAudioLink, setYtAudioLink] = useState("");
+  // e :states
+
+  // s : theme switching
+  const changeMode = () => {
+    if (color === "dark") {
+      setColor("light");
+      Appearance.setColorScheme("light");
+    } else {
+      setColor("dark");
+      Appearance.setColorScheme("dark");
+    }
+  };
+  // e : theme switching
+
+  // s : process youtube link
   const downloadFromUrl = async () => {
     Keyboard.dismiss();
     if (yturi == "") {
@@ -45,12 +73,26 @@ export default function App() {
       setYtAudioLink(audioFinalUri + "&title=" + title);
     }
   };
+  // e : process youtube link
 
+  // s : return
   return (
-    <View className=" bg-black h-full w-full">
+    <View
+      className={
+        color == "light" ? " bg-white h-full w-full" : "bg-black h-full w-full"
+      }
+    >
       <SafeAreaView>
-        <View className="w-full pt-2 pb-1 pl-3 ">
-          <Text className=" text-white text-2xl font-bold">
+        <View className="w-full justify-between flex-row pt-2 pb-1 pl-3 ">
+          {/* navigation bar  */}
+          <Text
+            className={
+              color == "light"
+                ? " text-black text-2xl font-bold"
+                : " text-white text-2xl font-bold"
+            }
+          >
+            {/* youtube logo  */}
             <Image
               className="h-10 w-10"
               source={require("./assets/Images/logo.png")}
@@ -59,29 +101,59 @@ export default function App() {
             outube <Text className="text-red-500">D</Text>
             ownloader
           </Text>
+
+          {/* dark mode switch */}
+          <View className=" h-8 w-8 pt-4 mr-5">
+            <TouchableOpacity onPress={changeMode}>
+              {color == "light" ? (
+                <MoonIcon size="23" strokeWidth={2} color="black" />
+              ) : (
+                <SunIcon size="23" strokeWidth={2} color="white" />
+              )}
+              {/* <Text className="text-white text-2xl text-center "></Text> */}
+            </TouchableOpacity>
+          </View>
         </View>
-        <View className="pt-72">
+
+        <View className="pt-60">
+          {/* link input box  */}
           <TextInput
             textAlignVertical="true"
             multiline
-            className=" bg-gray-950 border-2 border-gray-200 text-white p-1 ml-auto mr-auto w-72 text-lg rounded-md"
+            className={
+              color == "dark"
+                ? "bg-gray-950 border-2 border-gray-200 text-white p-1 ml-auto mr-auto w-72 text-lg rounded-md"
+                : "bg-white border-2 border-gray-900 text-black p-1 ml-auto mr-auto w-72 text-lg rounded-md"
+            }
             placeholderTextColor="gray"
             placeholder="Enter your youtube video url here."
             onChangeText={setUri}
             value={yturi}
           />
 
+          {/* generate url button  */}
           <TouchableOpacity
-            className="align-middle bg-white border-2 mt-10 rounded-xl w-48 pt-1 pb-1 mr-auto ml-auto"
+            className={
+              color == "dark"
+                ? "align-middle bg-white border-2 mt-10 rounded-xl w-48 pt-1 pb-1 mr-auto ml-auto"
+                : "align-middle bg-black border-2 mt-10 rounded-xl w-48 pt-1 pb-1 mr-auto ml-auto"
+            }
             onPress={downloadFromUrl}
           >
-            <Text className="text-black text-center p- text-lg">
+            <Text
+              className={
+                color == "dark"
+                  ? "text-black text-center p- text-lg"
+                  : "text-white text-center p- text-lg"
+              }
+            >
               Generate URL
             </Text>
           </TouchableOpacity>
           {/* generated url  */}
-          <Text
-            className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl"
+
+          {/* video button  */}
+          <TouchableOpacity
             onPress={() => {
               if (ytVideoLink == "") {
                 Alert.alert(
@@ -92,10 +164,13 @@ export default function App() {
               } else Linking.openURL(ytVideoLink);
             }}
           >
-            <Text className="text-center pb-2 font-bold">Download Video</Text>
-          </Text>
-          <Text
-            className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl"
+            <Text className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl pb-2 font-bold">
+              Download Video
+            </Text>
+          </TouchableOpacity>
+
+          {/* audio button  */}
+          <TouchableOpacity
             onPress={() => {
               if (ytAudioLink == "") {
                 Alert.alert(
@@ -106,11 +181,32 @@ export default function App() {
               } else Linking.openURL(ytAudioLink);
             }}
           >
-            <Text className="text-center pb-2 font-bold">Download Audio</Text>
-          </Text>
+            <Text className="text-center bg-red-800 p-1 text-white text-xl mt-5 border-red-900 border-2 w-48 mr-auto ml-auto rounded-xl pb-2 font-bold">
+              Download Audio
+            </Text>
+          </TouchableOpacity>
         </View>
-        <StatusBar style="light" />
+
+        <StatusBar style={color == "light" ? "dark" : "light"} />
       </SafeAreaView>
+      {/* github logo  */}
+      <TouchableOpacity
+        className="absolute "
+        style={{ left: "40%", bottom: "5%" }}
+        onPress={() => {
+          Linking.openURL(
+            "https://github.com/BlackHatDevX/ytDownloader-react-native"
+          );
+        }}
+      >
+        <Image
+          className="w-20 h-20"
+          style={
+            color == "dark" ? { tintColor: "white" } : { tintColor: "black" }
+          }
+          source={require("./assets/Images/github.png")}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
