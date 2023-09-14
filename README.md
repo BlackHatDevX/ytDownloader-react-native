@@ -10,7 +10,8 @@ Welcome to a cutting-edge React Native project that combines the power of modern
 
 ## Screenshot
 
-![Picsart_23-09-11_00-32-34-706](https://github.com/BlackHatDevX/ytDownloader-react-native/assets/91268029/1e7052b0-2b5e-44e0-a675-549dba9139de)
+![Picsart_23-09-14_18-03-01-080](https://github.com/BlackHatDevX/ytDownloader-react-native/assets/91268029/1e5ef417-66e5-4a1f-8cf4-989fd53577d7)
+
 
 ## Guide
 
