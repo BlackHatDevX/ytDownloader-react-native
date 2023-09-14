@@ -4,7 +4,9 @@ Welcome to a cutting-edge React Native project that combines the power of modern
 
 ## Download Apk
 
-https://bit.ly/jashYtDownloader
+• [YT DOWNLOADER V1.2](https://github.com/BlackHatDevX/ytDownloader-react-native/releases/download/1.2/ytDownloader-1.2.apk) (Latest)
+
+• [YT DOWNLOADER V1.1](https://bit.ly/jashYtDownloader)
 
 ## Screenshot
 
